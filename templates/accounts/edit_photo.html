@@ -1,0 +1,44 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %}  {% endblock %}
+
+{% block indication %}  {% endblock indication %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <a href="#" class="btn btn-outline-primary btn-rounded mb-2">+ Ajouter</a>
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Liste des ...</h4>
+        </div>
+        <div class="card-body">
+            <form action="{% url 'photo' request.user.id %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div style="display: none;">
+                {{form.as_p}}
+                </div>
+                <div class="row"> 
+                    
+                    <div class="col-md-6">
+                        <label for="" class="form-label">Photo de profil</label>
+                        <input type="file" class="form-control" name="image" accept="image/*">
+                    </div>
+                </div>
+                <br/>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-database"></i>
+                    Enregistrer
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+    
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

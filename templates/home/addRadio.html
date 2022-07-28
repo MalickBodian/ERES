@@ -1,0 +1,40 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %} Ajout d'une nouvelle radio {% endblock %}
+
+{% block indication %} Ajout d'une nouvelle radio {% endblock indication %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <a href="{% url 'radio' obj.id %}" class="btn btn-outline-dark btn-rounded mb-2"><i class="las la-undo-alt"></i> Annuler</a>
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Ajout d'une nouvelle radio pour {{obj.prenom}} {{obj.nom}}</h4>
+        </div>
+        <div class="card-body">
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row"> 
+                    
+                    <div class="col-md-6">
+                        <label for="" class="form-label">Photo de profil</label>
+                        <input type="file" class="form-control" name="image" accept="image/*">
+                    </div>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary">Enregistrer</button> 
+            </form>
+        </div>
+    </div>
+</div>
+    
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

@@ -1,0 +1,36 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %} Vue d'une radio {% endblock %}
+
+{% block indication %} Vue d'une radio {% endblock indication %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <a href="{% url 'radio' patient.id %}" class="btn btn-outline-dark btn-rounded mb-2"><i class="las la-undo-alt"></i> Retour</a>
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Vue de la radio en taille réelle </h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div>
+                    <p style="text-align:center;">
+                        <img style="max-width: 100%; max-height: 100%;" src="{{obj.photo.url}}">
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+{% endblock javascripts %}

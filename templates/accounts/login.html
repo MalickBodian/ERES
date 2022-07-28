@@ -1,0 +1,47 @@
+{% extends "layouts/base-login.html" %}
+
+{% block title %} Connexion {% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center h-100 align-items-center">
+        <div class="col-md-6">
+            <div class="authincation-content">
+                <div class="row no-gutters">
+                    <div class="col-xl-12">
+                        <div class="auth-form">
+                            <h4 class="text-center mb-4">Espace connexion</h4>
+                            <br />
+                            <p>
+                                {% if msg %}
+                                    {{ msg | safe }}
+                                {% endif %}                                     
+                            </p> 
+                            <form method='POST' action="">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label class="mb-1"><strong>Adresse mail</strong></label>
+                                    {{ form.email }}
+                                </div>
+                                <div class="form-group">
+                                    <label class="mb-1"><strong>Mot de passe</strong></label>
+                                    {{ form.password }}
+                                </div>
+                                <div class="form-row d-flex justify-content-between mt-4 mb-2">
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox ml-1">
+                                            <input type="checkbox" class="custom-control-input" id="basic_checkbox_1">
+                                            <label class="custom-control-label" for="basic_checkbox_1">Se souvenir de moi</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary btn-block">Connexion</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

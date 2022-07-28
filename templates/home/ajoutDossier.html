@@ -1,0 +1,42 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %} Ajout/Modification du dossier de {{ajout.prenom}} {{ajout.nom}} {% endblock %}
+
+{% block indication %} Ajout/Modification du dossier de {{ajout.prenom}} {{ajout.nom}} {% endblock indication %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <a style="text-align: right;" href="{% url 'dossier' ajout.id %}" class="btn btn-outline-dark btn-rounded mb-2"><i class="las la-undo-alt"></i> Annuler</a>
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Ajout/Modification du dossier de {{ajout.prenom}} {{ajout.nom}} </h4>
+        </div>
+        <div class="card-body">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6">
+                        {{form.docteur|as_crispy_field}}
+                        {{form.diagnostic|as_crispy_field}}
+                    </div>
+                    <div class="col-md-6">
+                        {{form.paiement|as_crispy_field}}
+                        {{form.traitement|as_crispy_field}}
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Enregistrer</button> 
+            </form>
+        </div>
+    </div>
+<div>
+    
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

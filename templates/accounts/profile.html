@@ -1,0 +1,101 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %} Profile {% endblock %}
+
+{% block indication %} Profile {% endblock indication %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="container-fluid">
+    {% comment %} <a href="#" class="btn btn-outline-primary btn-rounded mb-2">+ Ajouter</a> {% endcomment %}
+    <div class="row">
+        <div class="col-xl-3 col-lg-4 col-xxl-4">
+            <div class="card">
+                <div class="card-header border-0 pb-0">
+                    <h4 class="fs-20 font-w600 mb-0">Photo de profil</h4>
+                </div>
+                <div class="card-body pt-4">
+                    <div class="timeline-panel bgl-dark flex-wrap border-0 p-3 rounded">
+                        <div class="media bg-transparent mr-2">
+                            {% if request.user.photo %}
+                                <img class="card-img-top" alt="image" width="48" src="{{request.user.photo.url}}">
+                            {% else %}
+                                <img class="card-img-top" alt="image" width="48" src="{% static 'img_docteur/defaultDocteur.jpg' %}">
+                            {% endif %}
+                        </div>
+                    </div>
+                </br>
+                    <a href="{% url 'photo' request.user.id %}" class="btn btn-primary btn-rounded mb-2">Modifier photo</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6 col-xxl-8 col-lg-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="media d-sm-flex d-block text-center text-sm-left pb-4 mb-4 border-bottom">
+                        {% if request.user.photo %}
+                            <img alt="image" class="rounded mr-sm-4 mr-0" width="130" src="{{request.user.photo.url}}">
+                        {% else %}
+                            <img alt="image" class="rounded mr-sm-4 mr-0" width="130" src="{% static 'img_docteur/defaultDocteur.jpg' %}">
+                        {% endif %}
+                        <div class="media-body align-items-center">
+                            <div class="d-sm-flex d-block justify-content-between my-3 my-sm-0">
+                                <div>
+                                    <h3 class="fs-22 text-black font-w600 mb-0">{{request.user.prenom}} {{request.user.nom}} </h3>
+                                </div>
+                                <span>{{request.user.id}}</span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div>
+                                <label>Prénom(s)</label>
+                                <input class="form-control" type="text" value="{{ request.user.prenom }}" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div>
+                                <label>Nom(s)</label>
+                                <input class="form-control" type="text" value="{{ request.user.nom }}" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div>
+                                <label>Adresse</label>
+                                <input class="form-control" type="text" value="{{ request.user.adresse }}" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div>
+                                <label>Tel.</label>
+                                <input class="form-control" type="text" value="{{ request.user.tel }}" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div>
+                                <label>Rôle</label>
+                                <input class="form-control" type="text" value="{{ request.user.role }}" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div>
+                                <a href="#" class="btn btn-secondary btn-rounded mb-2">Modifier informations</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
