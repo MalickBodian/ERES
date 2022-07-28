@@ -8,8 +8,8 @@ urlpatterns = [
     ############################### CRUD de la table Patients ########################################
     path("patients", views.patient, name='patient'),
     path("ajout-patient", views.addPatient, name='addPatient'),
-    # path("modif-patient/<int:id>/", views.editPatient, name='editPatient'),
-    # path("delete-patient/<int:id>/", views.patientDelete, name='delPatient'),
+    path("modif-patient/<int:id>/", views.editPatient, name='editPatient'),
+    path("delete-patient/<int:id>/", views.patientDelete, name='delPatient'),
     ############################### CRUD de la table DossierPatient ########################################
     path("dossier-patient/<int:id>/", views.dossier, name='dossier'),
     path("ajout-au-dossier/<int:id>/", views.addDossier, name='addDossier'),

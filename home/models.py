@@ -35,17 +35,19 @@ class Entite(models.Model):
 
 
 class Patients(models.Model):
+    BLOOD_TYPE_CHOICES = (("O+", "O+"), ("O-", "O-"), ("A+", "A+"), ("A-", "A-"), ("B+", "B+"), ("B-", "B-"), ("AB+", "AB+"), ("AB-", "AB-"))
+    GENDER_CHOICES = (("Masculin", "Masculin"), ("Feminin", "Feminin"))
     docteur = models.ForeignKey("authentication.Account", on_delete=models.SET_NULL, blank=True, null=True)
-    entite = models.ForeignKey(Entite, on_delete=models.CASCADE)
-    nom = models.CharField(max_length=50)
-    prenom = models.CharField(max_length=50)
-    adresse = models.CharField(max_length=50)
-    tel = models.CharField(max_length=50)
-    dateNaissance = models.DateField(auto_now=False, auto_now_add=False)
-    age = models.IntegerField(default=0)
-    sexe = models.CharField(max_length=10, blank=True, null=True)
+    entite = models.ForeignKey(Entite, on_delete=models.SET_NULL, blank=True, null=True)
+    nom = models.CharField(max_length=50, blank=True, null=True)
+    prenom = models.CharField(max_length=50, blank=True, null=True)
+    adresse = models.CharField(max_length=50, blank=True, null=True)
+    tel = models.CharField(max_length=50, blank=True, null=True)
+    dateNaissance = models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True)
+    age = models.IntegerField(default=0, blank=True, null=True)
+    sexe = models.CharField(max_length=10, choices=GENDER_CHOICES, blank=True, null=True)
     proffesion = models.CharField(max_length=255, blank=True, null=True)
-    groupSanguin = models.CharField(max_length=10, blank=True, null=True)
+    groupSanguin = models.CharField(max_length=10, choices=BLOOD_TYPE_CHOICES, blank=True, null=True)
     photo = models.ImageField(max_length=255, upload_to=get_profile_image_filepath, blank=True, null=True, default=get_default_profile_image)
 
     def __str__(self):

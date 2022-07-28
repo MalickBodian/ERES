@@ -17,29 +17,34 @@ class DepartementForm(forms.ModelForm):
         self.fields['nom'].widget.attrs['placeholder'] = 'Saisir le nom du département'
         self.fields['responsable'].widget.attrs['placeholder'] = 'Saisir le nom du responsable'
 
-# class PatientForm(forms.ModelForm):
-#     class Meta:
-#         model = Patients
-#         fields = ('docteur', 'prenom', 'nom', 'adresse', 'tel', 'dateNaissance', 'age')
-#         labels = {
-#             'docteur': 'Docteur traitant',
-#             'prenom': 'Prénom du patient',
-#             'nom': 'Nom du patient',
-#             'adresse': 'Adresse du patient',
-#             'tel': 'Téléphone',
-#             'dateNaissance': 'Date de naissance',
-#             'age': 'Age',
-#         }
+class PatientForm(forms.ModelForm):
+    class Meta:
+        model = Patients
+        fields = ('docteur', 'prenom', 'nom', 'adresse', 'tel', 'age', 'sexe', 'proffesion', 'groupSanguin')
+        labels = {
+            'docteur': 'Docteur traitant',
+            'prenom': 'Prénom du patient',
+            'nom': 'Nom du patient',
+            'adresse': 'Adresse du patient',
+            'tel': 'Téléphone',
+            'age': 'Age',
+            'sexe': 'Sexe',
+            'proffesion': 'Proffession',
+            'groupSanguin': 'Groupe Sanguin',
+        }
 
-#     def __init__(self, *args, **kwargs):
-#         super(PatientForm,self).__init__(*args, **kwargs)
-#         self.fields['docteur'].empty_label = 'selection parmi les choix disponibles'
-#         self.fields['prenom'].widget.attrs['placeholder'] = 'Prénom'
-#         self.fields['nom'].widget.attrs['placeholder'] = 'Nom'
-#         self.fields['adresse'].widget.attrs['placeholder'] = 'Adresse'
-#         self.fields['tel'].widget.attrs['placeholder'] = 'Numéro de téléphone'
-#         self.fields['dateNaissance'].widget.attrs['placeholder'] = 'Date de naissance'
-#         self.fields['age'].widget.attrs['placeholder'] = 'Age'
+    def __init__(self, *args, **kwargs):
+        super(PatientForm,self).__init__(*args, **kwargs)
+        # self.fields['docteur'].empty_label = 'Sélection parmi les choix disponibles'
+        # self.fields['sexe'].empty_label = 'Sélection parmi les choix disponibles'
+        # self.fields['proffesion'].empty_label = 'Sélection parmi les choix disponibles'
+        # self.fields['groupSanguin'].empty_label = 'Sélection parmi les choix disponibles'
+        self.fields['prenom'].widget.attrs['placeholder'] = 'Prénom'
+        self.fields['nom'].widget.attrs['placeholder'] = 'Nom'
+        self.fields['adresse'].widget.attrs['placeholder'] = 'Adresse'
+        self.fields['tel'].widget.attrs['placeholder'] = 'Numéro de téléphone'
+        self.fields['age'].widget.attrs['placeholder'] = 'Age'
+        self.fields['proffesion'].widget.attrs['placeholder'] = 'Proffession'
 
 
 # class OrdonnanceForm(forms.ModelForm):
