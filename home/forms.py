@@ -102,3 +102,9 @@ class RadioForm(forms.ModelForm):
     class Meta:
         model = Radio
         fields = ('photo',)
+
+class ChangePatientPhotoForm(forms.ModelForm):
+    """Cette class sert uniquement à modifier l'image du profil d'un patient."""
+    class Meta:
+        model = Patients
+        fields = ('docteur', 'prenom', 'nom', 'adresse', 'tel', 'age', 'sexe', 'proffesion', 'groupSanguin')

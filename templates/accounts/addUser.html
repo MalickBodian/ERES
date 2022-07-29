@@ -1,0 +1,141 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %} Ajout d'utilisateur {% endblock %}
+
+{% block indication %} Ajout d'utilisateur {% endblock indication %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="container-fluid">
+    {% comment %} <a href="#" class="btn btn-outline-primary btn-rounded mb-2">+ Ajouter</a> {% endcomment %}
+    <div class="btn-group float-right" role="group">
+        <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">Actions sur les utilisateurs</button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="{% url 'list' %}"><i class="las la-list"> Afficher</i></a>
+            <a class="dropdown-item" href="{% url 'addUser' %}"><i class="las la-user-plus"> Ajouter</i></a>
+        </div>
+    </div>
+    <div class="mt-5 card">
+        <div class="card-body">
+            <div class="card-header">
+                <h4 class="card-title">Ajout d'un nouvel utilisateur</h4>
+            </div>
+            <div class="card-body">
+                <form id="addUser">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            
+                                <label>Email</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Adresse mail">
+
+                                <label>Mot de passe</label>
+                                <input type="password" class="form-control" id="password" name="password1" placeholder="Mettre un mot de passe par défaut">
+                                <input type="hidden" name="password2" value="" id='confirm'>
+                                
+                                <label>Prénom</label>
+                                <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Prénom">
+
+                                <label>Nom</label>
+                                <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom">
+                        </div>
+                        
+                        <div class="form-group col-md-6">
+                            <label>Adresse</label>
+                            <input type="text" class="form-control" id="adresse" name="adresse" placeholder="Adresse">
+
+                            <label>Contact</label>
+                            <input type="tel" class="form-control" id="tel" name="tel" placeholder="Téléphone">
+
+                            <label>Rôle</label>
+                            <select class="form-control" name="role" id='role'>
+                                <option selected="selected" value="Responsable">Responsable</option>
+                                <option value="Agent">Agent</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="alert alert-success"  id="success"  style="display: none">
+                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                    <strong>Success!</strong> <span id="successtext"></span>
+                                </div>
+                                <div class="alert alert-danger"  id="danger" style="display: none;">
+                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                    <strong>OUPS!!</strong> <span id="dangertext"></span>
+                                </div>
+                            </div>
+                            <p>
+                                <div class="col-md-12 text-left">
+                                    {% comment %} <button class="btn btn-primary mr-1" type="submit">Enregistrer</button> {% endcomment %}
+                                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                    <button class="btn btn-light" style="float: right;" type="reset">Annuler</button>
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+    
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script>
+    let password = document.getElementById('password')
+    let password2 = document.getElementById('confirm')
+    let form = document.getElementById('addUser')
+    let loader = $("#loader")
+
+    password.addEventListener('keyup', function(){
+        password2.value = password.value;
+    })
+
+    $('#addUser').submit(function(e){
+        e.preventDefault()
+        loader.css('display', '');
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'addUser' %}",
+            dataType: "JSON",
+            data: new FormData(this),
+            processData: false,
+            contentType: false,
+            success: function(response){
+                // 1. clear the form
+                //console.log('yes')
+                $("#addUser").trigger('reset')
+                //$("#nom").focus()
+                let instance = JSON.parse(response["instance"])
+                let message =  instance['message']
+                let is_new = instance['is_new']
+                if(is_new == true){
+                    $('#danger').css('display', 'none')
+                    loader.css('display', 'none');
+                    $('#successtext').html(message)
+                    $('#success').css('display', '')
+                    //console.log('Yes yes')
+                }else{
+                    //console.log('Yes no')
+                    $('#danger').css('display', '')
+                    loader.css('display', 'none');
+                    $('#dangertext').html(message)
+                    $('#success').css('display', 'none')
+                }
+            },
+            error: function(response){
+                // alerter l'erreur
+                alert(response["responseJSON"]["error"])
+            } 
+        })
+    })
+</script>
+{% endblock javascripts %}

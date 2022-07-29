@@ -63,3 +63,26 @@ class ProfileImageUpdateForm(forms.ModelForm):
     class Meta:
         model = Account
         fields = ('photo',)
+
+class UserCreationForm2(forms.ModelForm):
+    """A form for creating new users. Includes all the required
+    fields, plus a repeated password."""
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
+
+    class Meta:
+        model = Account
+        fields = ('email', 'prenom', 'nom', 'adresse', 'tel', 'role', 'entite')
+
+class UpdateUserForm(forms.ModelForm):
+    """Cette class permet de modifier les informations de l'utilisateur connecté"""
+    class Meta:
+        model = Account
+        fields = ('email', 'prenom', 'nom', 'adresse', 'tel',)
+
+class PasswordChangeFormEdit(PasswordChangeForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['old_password'].widget.attrs.update({'class' : 'form-control mb-2','placeholder':'Votre ancien mot de passe'})
+        self.fields['new_password1'].widget.attrs.update({'class' : 'form-control mb-2','placeholder':'Votre nouveau mot de passe'})
+        self.fields['new_password2'].widget.attrs.update({'class' : 'form-control mb-2','placeholder':'confirmer votre mot de passe '})

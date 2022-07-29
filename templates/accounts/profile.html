@@ -12,7 +12,14 @@
 
 <div class="container-fluid">
     {% comment %} <a href="#" class="btn btn-outline-primary btn-rounded mb-2">+ Ajouter</a> {% endcomment %}
-    <div class="row">
+    <div class="btn-group float-right" role="group">
+        <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">Actions sur les utilisateurs</button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="{% url 'list' %}"><i class="las la-list"> Afficher</i></a>
+            <a class="dropdown-item" href="{% url 'addUser' %}"><i class="las la-user-plus"> Ajouter</i></a>
+        </div>
+    </div>
+    <div class="mt-5 row">
         <div class="col-xl-3 col-lg-4 col-xxl-4">
             <div class="card">
                 <div class="card-header border-0 pb-0">
@@ -28,8 +35,10 @@
                             {% endif %}
                         </div>
                     </div>
-                </br>
-                    <a href="{% url 'photo' request.user.id %}" class="btn btn-primary btn-rounded mb-2">Modifier photo</a>
+                    </br>
+                    <div class="text-center">
+                        <a href="{% url 'photo' request.user.id %}" class="btn btn-info btn-rounded mb-2">Modifier photo</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -55,14 +64,8 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <div>
-                                <label>Prénom(s)</label>
-                                <input class="form-control" type="text" value="{{ request.user.prenom }}" readonly>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <div>
-                                <label>Nom(s)</label>
-                                <input class="form-control" type="text" value="{{ request.user.nom }}" readonly>
+                                <label>Email</label>
+                                <input class="form-control" type="text" value="{{ request.user.email }}" readonly>
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
@@ -73,8 +76,20 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <div>
+                                <label>Prénom(s)</label>
+                                <input class="form-control" type="text" value="{{ request.user.prenom }}" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div>
                                 <label>Tel.</label>
                                 <input class="form-control" type="text" value="{{ request.user.tel }}" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div>
+                                <label>Nom(s)</label>
+                                <input class="form-control" type="text" value="{{ request.user.nom }}" readonly>
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
@@ -83,12 +98,10 @@
                                 <input class="form-control" type="text" value="{{ request.user.role }}" readonly>
                             </div>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <div>
-                                <a href="#" class="btn btn-secondary btn-rounded mb-2">Modifier informations</a>
-                            </div>
+                        <div>
                         </div>
                     </div>
+                    <a href="{% url 'update' user.id %}" style="float: right;" class="btn btn-info btn-rounded mb-2">Modifier informations</a>
                 </div>
             </div>
         </div>

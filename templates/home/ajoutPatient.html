@@ -26,11 +26,6 @@
                         {{form.nom|as_crispy_field}}
                         {{form.adresse|as_crispy_field}}
                         {{form.tel|as_crispy_field}}
-                        {% comment %} {{form.dateNaissance|as_crispy_field}} {% endcomment %}
-                        {% comment %} <div class="form-group col-md-6"> {% endcomment %}
-                        {% comment %} <label>Date de naissance</label>
-                        <input type="date" class="form-control" name="date"> {% endcomment %}
-                        {% comment %} </div> {% endcomment %}
                         {{form.proffesion|as_crispy_field}}
                     </div>
                     <div class="form-group col-md-6">
@@ -39,62 +34,6 @@
                         {{form.groupSanguin|as_crispy_field}}
                         {{form.docteur|as_crispy_field}}
                     </div>
-                    {% comment %} <div class="form-group col-md-6">
-                        <label>Prénom</label>
-                        <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Prénom">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Nom</label>
-                        <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label>Adresse</label>
-                        <input type="text" class="form-control" id="adresse" name="adresse" placeholder="Adresse">
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label>Age</label>
-                        <input type="number" class="form-control" id="age" name="age" placeholder="Age">
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label>TEL.</label>
-                        <input type="tel" class="form-control" id="tel" name="tel" placeholder="Téléphone">
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label>Groupe sanguin</label>
-                        <select class="form-control" id="gs" name="gs">
-                            <option value="O+">O+</option>
-                            <option value="O-">O-</option>
-                            <option value="A+">A+</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B-">B-</option>
-                            <option value="AB+">AB+</option>
-                            <option value="AB-">AB-</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label>Date de naissance</label>
-                        <input type="date" class="form-control" id="date" name="date">
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label>Proffesion</label>
-                        <input type="text" class="form-control" id="proffession" name="proffession" placeholder="Proffesion">
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label>Sexe</label>
-                        <select class="form-control" id="sex" name="sex">
-                            <option value="Masculin">Masculin</option>
-                            <option value="Féminin">Féminin</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label>Médecin traitant</label>
-                        <select class="form-control" id="medecin" name="medecin">
-                            {% for docteur in docteurs %}
-                                <option value="{{docteur.id}}">{{docteur.prenom}} {{docteur.nom}}</option>
-                            {% endfor %}
-                        </select>
-                    </div> {% endcomment %}
                 </div>
                 <button type="submit" class="btn btn-primary">Enregistrer</button>
             </form>

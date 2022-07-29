@@ -28,38 +28,19 @@ def patient(request):
 
 @login_required(login_url="/")
 def addPatient(request):
+    submitted = False
     if request.method == 'POST':
         form = PatientForm(request.POST)
         if form.is_valid():
             form.instance.entite = request.user.entite
-            form.save
+            form.save()
             return HttpResponseRedirect('/home/patients')
     else:
         form = PatientForm
+        if 'submitted' in request.GET:
+            submitted = True
     form = PatientForm
-    # context = 
-    # if request.method == 'POST':
-    #     if request.POST.get('prenom') and request.POST.get('nom') and request.POST.get('adresse') and request.POST.get('tel') and request.POST.get('date') and request.POST.get('age') and request.POST.get('medecin') and request.POST.get('gs') and request.POST.get('proffession') and request.POST.get('sex'):
-    #         medecin = Account.objects.get(id=request.POST['medecin'])
-
-    #         proto = Patients()
-    #         proto.prenom = request.POST.get('prenom')
-    #         proto.nom = request.POST.get('nom')
-    #         proto.adresse = request.POST.get('adresse')
-    #         proto.tel = request.POST.get('tel')
-    #         proto.dateNaissance = request.POST.get('date')
-    #         proto.age = request.POST.get('age')
-    #         proto.entite = request.user.entite
-    #         proto.docteur = medecin
-    #         proto.groupSanguin = request.POST.get('gs')
-    #         proto.proffesion = request.POST.get('proffession')
-    #         proto.sexe = request.POST.get('sex')
-    #         # try:
-    #         proto.save()
-    #         # except:
-    #         return HttpResponseRedirect('/home/patients')
-    return render(request, 'home/ajoutPatient.html', {'form':form})#{'form':form, 'submitted':submitted})
-
+    return render(request, 'home/ajoutPatient.html', {'form':form, 'submitted':submitted})
 
 @login_required(login_url="/")
 def editPatient(request, id=0):
@@ -92,6 +73,7 @@ def patientDelete(request, id):
 def DetailPatient(request, id=0):
     obj = get_object_or_404(Patients, id=id)
     antecedents = Antecedant.objects.filter(patient = obj)
+    forms = ChangePatientPhotoForm(request.POST or None, instance = obj)
     if request.method == 'POST':
         form = AntecedantForm(request.POST)
         if form.is_valid():
@@ -105,23 +87,33 @@ def DetailPatient(request, id=0):
     context = {
         'detail':obj,
         'antecedents':antecedents,
-        'form':form
+        'form':form,
+        'forms':forms
     }
     return render(request, 'home/detail-patient.html', context)
 
 @login_required(login_url="/")
 def changePhoto(request, id=0):
     obj = get_object_or_404(Patients, id=id)
-    context = {'obj':obj}
-    if request.method == 'POST':
-        radio = Patients()
-        # radio.patient = obj
-        radio.photo = request.FILES['image']
-        radio.save()
+    forms = ChangePatientPhotoForm(request.POST or None, instance = obj)
+    context= {'forms': forms}
+    if forms.is_valid():
+        forms.instance.photo = request.FILES['image']
+        forms.save()
         return redirect('details', id)
     else:
-        context = {'obj':obj}
-    return render(request, 'home/addRadio.html', context)
+        context = {'forms': forms}
+    return render(request, 'home/detail-patient.html', context)
+    # context = {'obj':obj}
+    # if request.method == 'POST':
+    #     radio = Patients()
+    #     # radio.patient = obj
+    #     radio.photo = request.FILES['image']
+    #     radio.save()
+    #     return redirect('details', id)
+    # else:
+    #     context = {'obj':obj}
+    # return render(request, 'home/addRadio.html', context)
 
 # @login_required(login_url="/")
 # def addAntecedant(request, id=0):

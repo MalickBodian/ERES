@@ -68,7 +68,7 @@ class Departement(models.Model):
 
 class Radio(models.Model):
     created = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-    patient = models.ForeignKey(Patients, on_delete=models.SET_NULL, blank=True, null=True)
+    patient = models.ForeignKey(Patients, on_delete=models.CASCADE, blank=True, null=True)
     docteur = models.ForeignKey("authentication.Account", on_delete=models.SET_NULL, blank=True, null=True)
     photo = models.ImageField(max_length=255, upload_to=get_radio_image_filepath, blank=True, null=True)
 
