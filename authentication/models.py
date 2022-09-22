@@ -54,7 +54,7 @@ class Account(AbstractBaseUser):
     last_login        = models.DateTimeField(verbose_name='Date de la dérnière connexion', auto_now_add=True)
     is_admin          = models.BooleanField(default=False)
     is_active         = models.BooleanField(default=True)
-    is_staff          = models.BooleanField(default=False)
+    is_staff          = models.BooleanField(default=True)
     is_superuser      = models.BooleanField(default=False)
     USER_TYPE_CHOICES = (("Responsable", "Responsable"), ("Agent", "Agent"))
     adresse           = models.CharField(max_length=255, null=True, blank=True)

@@ -26,7 +26,7 @@ class PatientForm(forms.ModelForm):
             'prenom': 'Prénom du patient',
             'nom': 'Nom du patient',
             'adresse': 'Adresse du patient',
-            'tel': 'Téléphone',
+            'tel': 'Contact',
             'age': 'Age',
             'sexe': 'Sexe',
             'proffesion': 'Proffession',

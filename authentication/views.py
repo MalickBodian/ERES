@@ -74,7 +74,7 @@ def addUser(request):
             'role':request.POST.get('role', '')
         }
         # print(data['entite'])
-        form = UserCreationForm2(data)
+        form = UserCreationForm(data)
         if form.is_valid():
             form.save()
             # latest_id = Account.objects.latest('id').id

@@ -29,19 +29,18 @@
                     {% csrf_token %}
                     <div class="form-row">
                         <div class="form-group col-md-6">
+                            <label>Email</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Adresse mail">
+
+                            <label>Mot de passe</label>
+                            <input type="password" class="form-control" id="password" name="password1" placeholder="Mettre un mot de passe par défaut">
+                            <input type="hidden" name="password2" value="" id='confirm'>
                             
-                                <label>Email</label>
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Adresse mail">
+                            <label>Prénom</label>
+                            <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Prénom">
 
-                                <label>Mot de passe</label>
-                                <input type="password" class="form-control" id="password" name="password1" placeholder="Mettre un mot de passe par défaut">
-                                <input type="hidden" name="password2" value="" id='confirm'>
-                                
-                                <label>Prénom</label>
-                                <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Prénom">
-
-                                <label>Nom</label>
-                                <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom">
+                            <label>Nom</label>
+                            <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom">
                         </div>
                         
                         <div class="form-group col-md-6">
