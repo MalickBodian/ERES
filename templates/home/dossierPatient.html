@@ -36,6 +36,7 @@
                             <th style="width: %">Diagnostique</th>
                             <th style="width: %">Traitement</th>
                             <th style="width: %">Paiements</th>
+                            <th style="width: %">RV</th>
                             <th style="width: %">Actions</th>
                         </tr>
                     </thead>
@@ -47,6 +48,7 @@
                                 <td style="width: %">{{docs.diagnostic}}</td>
                                 <td style="width: %">{{docs.traitement}}</td>
                                 <td style="width: %">{{docs.paiement}}</td>
+                                <td style="width: %"></td>
                                 <td style="width: %">
                                     <a href="{% url 'editDossier' dossier.id docs.id  %}" title="Modifier">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

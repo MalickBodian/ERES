@@ -26,6 +26,8 @@
                         {{form.diagnostic|as_crispy_field}}
                     </div>
                     <div class="col-md-6">
+                        {% comment %} <label>Date de naissance</label>
+                        <input type="date" class="form-control" name="date" value="{{obj.dateNaissance}}"> {% endcomment %}
                         {{form.paiement|as_crispy_field}}
                         {{form.traitement|as_crispy_field}}
                     </div>

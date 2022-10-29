@@ -78,9 +78,9 @@ class AjoutdossierForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(AjoutdossierForm,self).__init__(*args, **kwargs)
         self.fields['docteur'].empty_label = 'selection parmi les choix disponibles'
-        self.fields['diagnostic'].required = True
+        self.fields['diagnostic'].required = False
         self.fields['traitement'].required = True
-        self.fields['paiement'].required = True
+        self.fields['paiement'].required = False
 #192.168.168.35 -> rapberry
 
 class AntecedantForm(forms.ModelForm):
@@ -96,7 +96,7 @@ class AntecedantForm(forms.ModelForm):
         self.fields['titre'].empty_label = 'Nom de l\'antécedent'
 
         self.fields['titre'].required = True
-        self.fields['antecedant'].required = True
+        self.fields['antecedant'].required = False
 
 class RadioForm(forms.ModelForm):
     class Meta:

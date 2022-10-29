@@ -171,12 +171,12 @@ def editDossier(request, pk=0, id=0):
     patient = get_object_or_404(Patients, pk=pk)
     obj = get_object_or_404(DossierPatient, id=id)
     form = AjoutdossierForm(request.POST or None, instance = obj)
-    context= {'form': form}
+    context= {'form': form, 'ajout':patient}
     if form.is_valid():
         form.save()
         return redirect('dossier', pk)
     else:
-        context = {'form': form}
+        context = {'form': form, 'ajout':patient}
     return render(request, 'home/ajoutDossier.html', context)
 
 @login_required(login_url="/")
