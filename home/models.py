@@ -90,7 +90,7 @@ class Radio(models.Model):
 
 class DossierPatient(models.Model):
     created = models.DateTimeField(auto_now_add=True)
-    dateRV = models.DateTimeField(auto_now=False, auto_now_add=False, blank=True, null=True)
+    dateRV = models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True)
     entite = models.ForeignKey(Entite, on_delete=models.CASCADE)
     docteur = models.ForeignKey("authentication.Account", on_delete=models.SET_NULL, blank=True, null=True)
     patient = models.ForeignKey(Patients, on_delete=models.CASCADE, blank=True, null=True)

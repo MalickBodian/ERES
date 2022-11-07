@@ -2,9 +2,9 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
-{% block title %} Ajout du dossier de {{ajout.prenom}} {{ajout.nom}} {% endblock %}
+{% block title %} Modification du dossier de {{ajout.prenom}} {{ajout.nom}} {% endblock %}
 
-{% block indication %} Ajout du dossier de {{ajout.prenom}} {{ajout.nom}} {% endblock indication %}
+{% block indication %} Modification du dossier de {{ajout.prenom}} {{ajout.nom}} {% endblock indication %}
 
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}{% endblock stylesheets %}
@@ -15,7 +15,7 @@
     <a style="text-align: right;" href="{% url 'dossier' ajout.id %}" class="btn btn-outline-dark btn-rounded mb-2"><i class="las la-undo-alt"></i> Annuler</a>
     <div class="card">
         <div class="card-header">
-            <h4 class="card-title">Ajout du dossier de {{ajout.prenom}} {{ajout.nom}} </h4>
+            <h4 class="card-title">Modification du dossier de {{ajout.prenom}} {{ajout.nom}} </h4>
         </div>
         <div class="card-body">
             <form action="" method="POST">
@@ -24,12 +24,10 @@
                     <div class="col-md-6">
                         {{form.docteur|as_crispy_field}}
                         <label>RV</label>
-                        <input type="date" class="form-control" name="date">
+                        <input type="date" class="form-control" name="date" value="{{doss.dateRV}}">
                         {{form.diagnostic|as_crispy_field}}
                     </div>
                     <div class="col-md-6">
-                        {% comment %} <label>Date de naissance</label>
-                        <input type="date" class="form-control" name="date" value="{{obj.dateNaissance}}"> {% endcomment %}
                         {{form.paiement|as_crispy_field}}
                         {{form.traitement|as_crispy_field}}
                     </div>

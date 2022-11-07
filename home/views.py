@@ -140,7 +140,7 @@ def dossier(request, id=0):
     obj = get_object_or_404(Patients, id=id)
     context = {
         'dossier':obj,
-        'dossierPatient':DossierPatient.objects.filter(patient = obj)
+        'dossierPatient':DossierPatient.objects.filter(patient = obj).order_by("-created")
     }
     return render(request, 'home/dossierPatient.html', context)
 
@@ -150,11 +150,19 @@ def addDossier(request, id=0):
     submitted = False
     if request.method == 'POST':
         form = AjoutdossierForm(request.POST)
-        if form.is_valid():
-            form.instance.patient = obj
-            form.instance.entite = request.user.entite
-            form.save()
-            return redirect('dossier', id)
+        if request.POST.get('date'):
+            if form.is_valid():
+                form.instance.dateRV = request.POST.get('date')
+                form.instance.patient = obj
+                form.instance.entite = request.user.entite
+                form.save()
+                return redirect('dossier', id)
+        else:
+            if form.is_valid():
+                form.instance.patient = obj
+                form.instance.entite = request.user.entite
+                form.save()
+                return redirect('dossier', id)
     else:
         form = AjoutdossierForm
         if 'submitted' in request.GET:
@@ -172,12 +180,18 @@ def editDossier(request, pk=0, id=0):
     obj = get_object_or_404(DossierPatient, id=id)
     form = AjoutdossierForm(request.POST or None, instance = obj)
     context= {'form': form, 'ajout':patient}
-    if form.is_valid():
-        form.save()
-        return redirect('dossier', pk)
+    if request.POST.get('date'):
+        if form.is_valid():
+            form.instance.dateRV = request.POST.get('date')
+            form.save()
+            return redirect('dossier', pk)
+    if not request.POST.get('date'):
+        if form.is_valid():
+            form.save()
+            return redirect('dossier', pk)
     else:
-        context = {'form': form, 'ajout':patient}
-    return render(request, 'home/ajoutDossier.html', context)
+        context = {'form': form, 'ajout':patient, 'doss':obj}
+    return render(request, 'home/editDossier.html', context)
 
 @login_required(login_url="/")
 def delDossier(request, pk, id):

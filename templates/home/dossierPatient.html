@@ -28,7 +28,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table id="example" class="display min-w850">
+                <table id="exampleTest" class="display min-w850">
                     <thead>
                         <tr>
                             <th style="width: %">Ajouté le</th>
@@ -48,7 +48,7 @@
                                 <td style="width: %">{{docs.diagnostic}}</td>
                                 <td style="width: %">{{docs.traitement}}</td>
                                 <td style="width: %">{{docs.paiement}}</td>
-                                <td style="width: %"></td>
+                                <td style="width: %">{{docs.dateRV}}</td>
                                 <td style="width: %">
                                     <a href="{% url 'editDossier' dossier.id docs.id  %}" title="Modifier">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -94,4 +94,12 @@
 {% block javascripts %}
 <script src="{% static 'vendor/datatables/js/jquery.dataTables.min.js' %}"></script>
 <script src="{% static 'js/plugins-init/datatables.init.js' %}"></script>
+<script type="text/javascript">
+    $(document).ready( function () {
+        $('#exampleTest').DataTable({
+            "ordering": false
+            
+        });
+    } );
+</script>
 {% endblock javascripts %}
