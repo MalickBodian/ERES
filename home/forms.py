@@ -68,12 +68,13 @@ class PatientForm(forms.ModelForm):
 class AjoutdossierForm(forms.ModelForm):
     class Meta:
         model = DossierPatient
-        fields = ('docteur', 'diagnostic', 'traitement', 'paiement')
+        fields = ('docteur', 'diagnostic', 'traitement', 'paiement', 'remarques')
         labels = {
             'docteur': 'Praticien',
             'diagnostic': 'Diagnostique',
             'traitement': 'Traitement',
             'paiement': 'Paiement',
+            'remarques': 'Remarques',
         }
     def __init__(self, *args, **kwargs):
         super(AjoutdossierForm,self).__init__(*args, **kwargs)
@@ -81,6 +82,7 @@ class AjoutdossierForm(forms.ModelForm):
         self.fields['diagnostic'].required = False
         self.fields['traitement'].required = True
         self.fields['paiement'].required = False
+        self.fields['remarques'].required = False
 #192.168.168.35 -> rapberry
 
 class AntecedantForm(forms.ModelForm):

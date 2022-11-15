@@ -96,7 +96,8 @@ class DossierPatient(models.Model):
     patient = models.ForeignKey(Patients, on_delete=models.CASCADE, blank=True, null=True)
     diagnostic = models.TextField(blank=True, null=True)
     traitement = models.TextField(blank=True, null=True)
-    paiement = models.CharField(max_length=10, blank=True, null=True)
+    remarques = models.TextField(blank=True, null=True)
+    paiement = models.CharField(max_length=200, blank=True, null=True)
 
 class Antecedant(models.Model):
     created = models.DateTimeField(auto_now_add=True)

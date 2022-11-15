@@ -1,6 +1,5 @@
 from django.urls import path
 from home import views
-
 urlpatterns = [ 
     path("accueil", views.index, name='home'),
     ############################### Informations générales du patient ########################################
@@ -20,4 +19,6 @@ urlpatterns = [
     path("radio-patient/<int:id>/", views.radioList, name='radio'),
     path("ajout-radio/<int:id>/", views.radioAdd, name='addRadio'),
     path("affichage-radio/<int:pk>/<int:id>/", views.viewRadio, name='viewRadio'),
+    path("recup", views.get_patients, name='recup'),
+    path("diagnosis", views.get_diagnosis, name='diagnosis'),
 ]

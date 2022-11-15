@@ -1,9 +1,7 @@
 # from multiprocessing import context
 from django.shortcuts import render, redirect
-from requests import request
 from .forms import *
 from .models import *
-from django.urls import reverse
 from django.shortcuts import redirect
 from authentication.models import *
 from django.contrib.auth.decorators import login_required
@@ -11,6 +9,10 @@ from django.http import HttpResponseRedirect
 from django.template import loader
 from django.shortcuts import get_object_or_404
 from .forms import *
+from django.views.decorators.csrf import csrf_exempt
+import json
+from django.http import HttpResponse
+
 
 
 @login_required(login_url="/")
@@ -233,3 +235,31 @@ def radioAdd(request, id):
     else:
         context = {'obj':obj}
     return render(request, 'home/addRadio.html', context)
+
+@login_required(login_url="/")
+def get_patients(request):
+    f = open('home/patients.json',)
+    datas = json.load(f)
+    for data in datas:
+        Patients.objects.get_or_create(pk=data['pk'], 
+        prenom=data['prenom'],
+        nom=data['nom'],
+        adresse=data['adresse'],
+        tel=data['tel'],
+        sexe=data['genre'],
+        proffesion=data['proffession'],
+        entite=request.user.entite)
+    return redirect('home')
+@login_required(login_url="/")
+def get_diagnosis(request):
+    f = open('home/diagnosis.json',)
+    datas = json.load(f)
+    for data in datas:
+        DossierPatient.objects.get_or_create(pk=data['pk'], 
+        patient=Patients.objects.get(id = data['patient']),
+        diagnostic=data['diagnostic'],
+        traitement=data['traitement'],
+        remarques=data['remarks'],
+        paiement=data['bill'],
+        entite=request.user.entite)
+    return redirect('home')
