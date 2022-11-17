@@ -17,7 +17,9 @@ from django.http import HttpResponse
 
 @login_required(login_url="/")
 def index(request):
-    context = {'segment': 'index'}
+    patients = Patients.objects.filter(entite = request.user.entite).count()
+    doctors = Account.objects.filter(entite = request.user.entite).count()
+    context = {'patient':patients, 'doctor':doctors}
     return render(request,"home/index.html", context)
 
 ############################### CRUD de la table Patients ########################################
