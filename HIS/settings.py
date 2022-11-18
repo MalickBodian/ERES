@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 import os
+import django_heroku
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,7 +28,7 @@ SECRET_KEY = 'django-insecure-dyx3x&25t4zq+1y(&cr*#qzqe-g2am*1c_=&+s!&j80!@b@oq2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['eres.herokuapp.com']
 
 
 # Application definition
@@ -93,10 +94,11 @@ AUTHENTICATION_BACKENDS = (
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ERES',
-        'USER': 'postgres',
-        'PASSWORD': 'sampoulom03',
-        'HOST': 'localhost',
+        'NAME': 'd9hkg02tk9i04q',
+        'USER': 'ejnkoohhpuypnx',
+        'PASSWORD': '2f2fbf93bf5e03a980970b832eb80dc291c5f5edc4e5603032de214e81cb756f',
+        'HOST': 'ec2-35-173-91-114.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
