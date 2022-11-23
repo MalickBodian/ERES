@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 import os
-import django_heroku
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -28,7 +27,7 @@ SECRET_KEY = 'django-insecure-dyx3x&25t4zq+1y(&cr*#qzqe-g2am*1c_=&+s!&j80!@b@oq2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['eres-app.herokuapp.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -50,12 +49,19 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django_session_timeout.middleware.SessionTimeoutMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+SESSION_EXPIRE_SECONDS = 1800  # 1800 - >30 minutes = 30 * 60
+SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True # on prend en compte son dernier activité dans la plateform
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True # deconnexion si le navigateur est fermé
+# SESSION_EXPIRE_AFTER_LAST_ACTIVITY_GRACE_PERIOD = 1 # group by minute
+SESSION_TIMEOUT_REDIRECT = '/' # lien de redirection
 
 LOGIN_REDIRECT_URL = "home"  # Route defined in home/urls.py
 LOGOUT_REDIRECT_URL = "/"  # Route defined in home/urls.py
@@ -94,11 +100,10 @@ AUTHENTICATION_BACKENDS = (
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd9hkg02tk9i04q',
-        'USER': 'ejnkoohhpuypnx',
-        'PASSWORD': '2f2fbf93bf5e03a980970b832eb80dc291c5f5edc4e5603032de214e81cb756f',
-        'HOST': 'ec2-35-173-91-114.compute-1.amazonaws.com',
-        'PORT': '5432',
+        'NAME': 'ERES',
+        'USER': 'postgres',
+        'PASSWORD': 'sampoulom03',
+        'HOST': 'localhost',
     }
 }
 

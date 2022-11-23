@@ -76,7 +76,7 @@ def patientDelete(request, id):
 @login_required(login_url="/")
 def DetailPatient(request, id=0):
     obj = get_object_or_404(Patients, id=id)
-    antecedents = Antecedant.objects.filter(patient = obj)
+    antecedents = Antecedant.objects.filter(patient = obj).order_by('-id')
     forms = ChangePatientPhotoForm(request.POST or None, instance = obj)
     if request.method == 'POST':
         form = AntecedantForm(request.POST)
