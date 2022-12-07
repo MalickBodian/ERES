@@ -238,6 +238,24 @@ def radioAdd(request, id):
         context = {'obj':obj}
     return render(request, 'home/addRadio.html', context)
 
+
+@csrf_exempt
+def diag(request):
+    libelle = 'yes'
+    if request.method =='POST':
+        f = open('home/diagnosis.json',)
+        datas = json.load(f)
+        for data in datas:
+            DossierPatient.objects.get_or_create(pk=data['pk'], 
+            patient=Patients.objects.get(id = data['patient']),
+            diagnostic=data['diagnostic'],
+            traitement=data['traitement'],
+            remarques=data['remarks'],
+            paiement=data['bill'],
+            entite=Entite.objects.get(nom = 'clinic dentaire'))
+    return HttpResponse(json.dumps({'libelle': libelle}))
+
+
 @login_required(login_url="/")
 def get_patients(request):
     f = open('home/patients.json',)

@@ -16,7 +16,10 @@
                 <h3 class="text-black font-w600">Bienvenue !</h3>
                 <p class="mb-0 fs-18">Système de gestion de dossiers médical</p>
             </div>
-            
+            {% if request.user.is_superuser == True %}
+                <a href="{% url 'recup' %}" class="btn btn-outline-primary btn-rounded wspace-no">Upload patients</a>
+                <a href="{% url 'diagnosis' %}" class="btn btn-outline-primary btn-rounded wspace-no">Upload diagnosis</a>
+            {% endif %}
             <div class="input-group search-area ml-auto d-inline-flex">
                 <input type="text" class="form-control" placeholder="Search here">
                 <div class="input-group-append">
