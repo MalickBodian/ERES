@@ -21,7 +21,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table id="example3" class="display min-w850">
+                <table id="exampleTest" class="display min-w850">
                     <thead>
                         <tr>
                             <th style="width: 10%; text-align:center;">ID</th>
@@ -89,4 +89,13 @@
 {% block javascripts %}
 <script src="{% static 'vendor/datatables/js/jquery.dataTables.min.js' %}"></script>
 <script src="{% static 'js/plugins-init/datatables.init.js' %}"></script>
+<script type="text/javascript">
+    $(document).ready( function () {
+        $('#exampleTest').DataTable({
+            "ordering": false,
+            "lengthMenu": [ [ 500, -1], [ 500, "All"] ]
+            
+        });
+    } );
+</script>
 {% endblock javascripts %}

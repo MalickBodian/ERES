@@ -26,7 +26,7 @@ def index(request):
 @login_required(login_url="/")
 def patient(request):
     context = {
-        'patients' : Patients.objects.filter(entite = request.user.entite)
+        'patients' : Patients.objects.filter(entite = request.user.entite).order_by('-id')
     }
     return render(request, 'home/patients.html', context)
 
@@ -277,8 +277,8 @@ def get_diagnosis(request):
     for data in datas:
         DossierPatient.objects.get_or_create(pk=data['pk'], 
         patient=Patients.objects.get(id = data['patient']),
-        diagnostic=data['diagnostic'],
-        traitement=data['traitement'],
+        diagnostic=data['dent'] + '' + data['diagnostic'],
+        traitement=data['traitement'] + '' + data['chirurgie'],
         remarques=data['remarks'],
         paiement=data['bill'],
         entite=request.user.entite)
