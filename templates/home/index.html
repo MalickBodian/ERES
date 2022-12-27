@@ -20,6 +20,10 @@
                 <a href="{% url 'recup' %}" class="btn btn-outline-primary btn-rounded wspace-no">Upload patients</a>
                 <a href="{% url 'diagnosis' %}" class="btn btn-outline-primary btn-rounded wspace-no">Upload diagnosis</a>
             {% endif %}
+            {% comment %} {% if request.user.is_superuser == True %}
+                <a href="{% url 'test1' %}" class="btn btn-outline-primary btn-rounded wspace-no">Upload patients</a>
+                <a href="{% url 'test2' %}" class="btn btn-outline-primary btn-rounded wspace-no">Upload diagnosis</a>
+            {% endif %} {% endcomment %}
             <div class="input-group search-area ml-auto d-inline-flex">
                 <input type="text" class="form-control" placeholder="Search here">
                 <div class="input-group-append">

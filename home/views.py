@@ -240,21 +240,51 @@ def radioAdd(request, id):
 
 
 @csrf_exempt
-def diag(request):
+def rectif(request):
     libelle = 'yes'
     if request.method =='POST':
-        f = open('home/diagnosis.json',)
-        datas = json.load(f)
-        for data in datas:
-            DossierPatient.objects.get_or_create(pk=data['pk'], 
-            patient=Patients.objects.get(id = data['patient']),
-            diagnostic=data['diagnostic'],
-            traitement=data['traitement'],
-            remarques=data['remarks'],
-            paiement=data['bill'],
-            entite=Entite.objects.get(nom = 'clinic dentaire'))
+        patients = TestPatients.objects.all()
+        for x in patients:
+            tests = TestDossierPatient.objects.filter(patient = x)
+            for y in tests:
+                y.prenom = x.prenom
+                y.nom = x.nom
+                y.save()
     return HttpResponse(json.dumps({'libelle': libelle}))
 
+    
+@csrf_exempt
+def rectif2(request):
+    libelle = 'yes'
+    if request.method =='POST':
+        dossier = TestDossierPatient.objects.all()
+        for x in dossier:
+            test = DossierPatient()
+            test.dateRV = x.dateRV
+            test.diagnostic = x.diagnostic
+            test.docteur = x.docteur
+            test.entite = x.entite
+            test.nom = x.nom
+            test.prenom = x.prenom
+            test.paiement = x.paiement
+            test.traitement = x.traitement
+            test.remarques = x.remarques
+            test.save()
+            
+    return HttpResponse(json.dumps({'libelle': libelle}))
+
+
+@csrf_exempt
+def rectif3(request):
+    libelle = 'yes'
+    if request.method =='POST':
+        patient = Patients.objects.all()
+        for x in patient:
+            dossiers = DossierPatient.objects.filter(nom = x.nom, prenom = x.prenom)
+            for doss in dossiers:
+                doss.patient = x
+                doss.save()
+    return HttpResponse(json.dumps({'libelle': libelle}))
 
 @login_required(login_url="/")
 def get_patients(request):
@@ -270,16 +300,56 @@ def get_patients(request):
         proffesion=data['proffession'],
         entite=request.user.entite)
     return redirect('home')
+
 @login_required(login_url="/")
 def get_diagnosis(request):
     f = open('home/diagnosis.json',)
     datas = json.load(f)
     for data in datas:
         DossierPatient.objects.get_or_create(pk=data['pk'], 
-        patient=Patients.objects.get(id = data['patient']),
+        # patient=Patients.objects.get(id = data['patient']),
         diagnostic=data['dent'] + '' + data['diagnostic'],
         traitement=data['traitement'] + '' + data['chirurgie'],
         remarques=data['remarks'],
         paiement=data['bill'],
         entite=request.user.entite)
     return redirect('home')
+
+# @login_required(login_url="/")
+# def rectif(request):
+#     patients = Patients.objects.filter(entite = request.user.entite)
+#     for pat in patients:
+#         diags = TestDossierPatient.objects.filter(patient = pat)
+#         for dia in diags:
+
+#     return redirect('home')
+
+
+@login_required(login_url="/")
+def test_patients(request):
+    f = open('home/patients.json',)
+    datas = json.load(f)
+    for data in datas:
+        TestPatients.objects.get_or_create(pk=data['pk'], 
+        prenom=data['prenom'],
+        nom=data['nom'],
+        adresse=data['adresse'],
+        tel=data['tel'],
+        sexe=data['genre'],
+        proffesion=data['proffession'],
+        entite=request.user.entite)
+    return redirect('home')
+
+@login_required(login_url="/")
+def test_diagnosis(request):
+    f = open('home/diagnosis.json',)
+    datas = json.load(f)
+    for data in datas:
+        TestDossierPatient.objects.get_or_create(pk=data['pk'], 
+        patient=TestPatients.objects.get(id = data['patient']),
+        diagnostic=data['dent'] + '' + data['diagnostic'],
+        traitement=data['traitement'] + '' + data['chirurgie'],
+        remarques=data['remarks'],
+        paiement=data['bill'],
+        entite=request.user.entite)
+    return redirect('home')    

@@ -19,6 +19,11 @@ urlpatterns = [
     path("radio-patient/<int:id>/", views.radioList, name='radio'),
     path("ajout-radio/<int:id>/", views.radioAdd, name='addRadio'),
     path("affichage-radio/<int:pk>/<int:id>/", views.viewRadio, name='viewRadio'),
+    path("rectif/", views.rectif),
+    path("rectif2/", views.rectif2),
+    path("rectif3/", views.rectif3),
     path("recup", views.get_patients, name='recup'),
     path("diagnosis/", views.get_diagnosis, name='diagnosis'),
+    path("test1/", views.test_patients, name='test1'),
+    path("test2/", views.test_diagnosis, name='test2'),
 ]

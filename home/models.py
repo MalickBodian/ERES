@@ -98,6 +98,8 @@ class DossierPatient(models.Model):
     traitement = models.TextField(blank=True, null=True)
     remarques = models.TextField(blank=True, null=True)
     paiement = models.CharField(max_length=200, blank=True, null=True)
+    nom = models.CharField(max_length=50, blank=True, null=True)
+    prenom = models.CharField(max_length=50, blank=True, null=True)
 
 class Antecedant(models.Model):
     created = models.DateTimeField(auto_now_add=True)
@@ -106,3 +108,38 @@ class Antecedant(models.Model):
     patient = models.ForeignKey(Patients, on_delete=models.CASCADE, blank=True, null=True)
     
 
+
+
+
+class TestPatients(models.Model):
+    BLOOD_TYPE_CHOICES = (("O+", "O+"), ("O-", "O-"), ("A+", "A+"), ("A-", "A-"), ("B+", "B+"), ("B-", "B-"), ("AB+", "AB+"), ("AB-", "AB-"))
+    GENDER_CHOICES = (("Masculin", "Masculin"), ("Feminin", "Feminin"))
+    docteur = models.ForeignKey("authentication.Account", on_delete=models.SET_NULL, blank=True, null=True)
+    entite = models.ForeignKey(Entite, on_delete=models.SET_NULL, blank=True, null=True)
+    nom = models.CharField(max_length=50, blank=True, null=True)
+    prenom = models.CharField(max_length=50, blank=True, null=True)
+    adresse = models.CharField(max_length=50, blank=True, null=True)
+    tel = models.CharField(max_length=50, blank=True, null=True)
+    dateNaissance = models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True)
+    age = models.IntegerField(default=0, blank=True, null=True)
+    sexe = models.CharField(max_length=10, choices=GENDER_CHOICES, blank=True, null=True)
+    proffesion = models.CharField(max_length=255, blank=True, null=True)
+    
+    def __str__(self):
+        return '{} {}'.format(self.prenom, self.nom)
+
+
+class TestDossierPatient(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    dateRV = models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True)
+    entite = models.ForeignKey(Entite, on_delete=models.CASCADE)
+    docteur = models.ForeignKey("authentication.Account", on_delete=models.SET_NULL, blank=True, null=True)
+    patient = models.ForeignKey(TestPatients, on_delete=models.CASCADE, blank=True, null=True)
+    diagnostic = models.TextField(blank=True, null=True)
+    traitement = models.TextField(blank=True, null=True)
+    remarques = models.TextField(blank=True, null=True)
+    paiement = models.CharField(max_length=200, blank=True, null=True)
+    nom = models.CharField(max_length=50, blank=True, null=True)
+    prenom = models.CharField(max_length=50, blank=True, null=True)
+
+    
